@@ -3,6 +3,8 @@ package jade;
 import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 import render.Shader;
+import render.Texture;
+import util.Time;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -33,11 +35,11 @@ public class LevelEditorScene extends Scene {
             }""";
     private int vertexID, fragmentID, shaderProgram;
     private float[] vertexData = {
-         //POS                      //COLOR
-         100.0f,  0.0f,    0.0f,        1.0f, 0.0f, 1.0f, 1.0f, //Bottom Right 0
-         0.0f,    100.0f,  0.0f,        1.0f, 0.0f, 0.0f, 1.0f, //Top Left     1
-         100.0f,  100.0f,  0.0f,        0.0f, 1.0f, 0.0f, 1.0f, //Top Right    2
-         0.0f,    0.0f,    0.0f,        0.0f, 0.0f, 1.0f, 1.0f, //Bottom Left  3
+         //POS                      //COLOR                      //UV Coordinates
+         200.0f,  0.0f,    0.0f,    1.0f, 0.0f, 1.0f, 1.0f,      1, 1, //Bottom Right 0
+         0.0f,    100.0f,  0.0f,    1.0f, 0.0f, 0.0f, 1.0f,      0, 0, //Top Left     1
+         200.0f,  100.0f,  0.0f,    0.0f, 1.0f, 0.0f, 1.0f,      1, 0, //Top Right    2
+         0.0f,    0.0f,    0.0f,    0.0f, 0.0f, 1.0f, 1.0f,      0, 1  //Bottom Left  3
     };
     private int[] elementData = {
         /*
@@ -53,6 +55,7 @@ public class LevelEditorScene extends Scene {
     private int vaoID, vboID, eboID;
 
     private Shader shader;
+    private Texture texture;
 
     public LevelEditorScene() {
 
@@ -63,6 +66,7 @@ public class LevelEditorScene extends Scene {
         this.camera = new Camera(new Vector2f(0, 0));
         shader = new Shader("src/assets/shaders/default.glsl");
         shader.compile();
+        this.texture = new Texture("src/assets/textures/test.png");
 
         //VAO VBO EBO stuff and sending it to gpu
         //VAO
@@ -86,13 +90,16 @@ public class LevelEditorScene extends Scene {
         //Add the vertex attribute pointers
         int positionSize = 3;
         int colorSize = 4;
-        int floatSizeBytes = 4;
-        int vertexSizeBytes = ((positionSize + colorSize) * floatSizeBytes);
+        int uvSize = 2;
+        int vertexSizeBytes = ((positionSize + colorSize + uvSize) * Float.BYTES);
         glVertexAttribPointer(0, positionSize, GL_FLOAT, false, vertexSizeBytes, 0);
         glEnableVertexAttribArray(0);
 
-        glVertexAttribPointer(1, colorSize, GL_FLOAT, false, vertexSizeBytes, positionSize * floatSizeBytes);
+        glVertexAttribPointer(1, colorSize, GL_FLOAT, false, vertexSizeBytes, positionSize * Float.BYTES);
         glEnableVertexAttribArray(1);
+
+        glVertexAttribPointer(2, uvSize, GL_FLOAT, false, vertexSizeBytes, (positionSize + colorSize) * Float.BYTES);
+        glEnableVertexAttribArray(2);
     }
     @Override
     public void render(float deltaTime) {
@@ -100,8 +107,15 @@ public class LevelEditorScene extends Scene {
 
         //bind shader
         shader.use();
+
+        //upload texture
+        shader.uploadTex("TEX_SAMPLER",0);
+        glActiveTexture(GL_TEXTURE0);
+        texture.bind();
+
         shader.uploadMat4f("uProj", camera.getProjectionMatrix());
         shader.uploadMat4f("uView", camera.getViewMatrix());
+        shader.uploadFloat("uTime", Time.getTime());
         //bind VAO
         glBindVertexArray(vaoID);
         //enable attribute pointers
