@@ -1,12 +1,15 @@
 package render;
 
+import org.joml.Matrix4f;
+import org.lwjgl.BufferUtils;
+
 import java.io.IOException;
+import java.nio.FloatBuffer;
 import java.nio.file.*;
 
 import static org.lwjgl.opengl.GL20.*;
 
 import static org.lwjgl.opengl.GL11.GL_FALSE;
-import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL20.glGetShaderInfoLog;
 
 public class Shader {
@@ -43,7 +46,7 @@ public class Shader {
             }
 
         } catch (IOException e){
-            e.printStackTrace();
+            e.printStackTrace(System.err);
             assert false : "no shader file on "+filepath;
         }
     }
@@ -57,8 +60,8 @@ public class Shader {
         glShaderSource(vertexID, vertexSrc);
         glCompileShader(vertexID);
         //check for errs
-        int succes = glGetShaderi(vertexID, GL_COMPILE_STATUS);
-        if (succes == GL_FALSE) {
+        int success = glGetShaderi(vertexID, GL_COMPILE_STATUS);
+        if (success == GL_FALSE) {
             int len = glGetShaderi(vertexID, GL_INFO_LOG_LENGTH);
             System.err.println("failed compiling vertex shader XDDD: \n" + glGetShaderInfoLog(vertexID, len) +"\nfile: " + filepath);
             assert false : "";
@@ -71,8 +74,8 @@ public class Shader {
         glShaderSource(fragmentID, fragmentSrc);
         glCompileShader(fragmentID);
         //check for errs
-        succes = glGetShaderi(fragmentID, GL_COMPILE_STATUS);
-        if (succes == GL_FALSE) {
+        success = glGetShaderi(fragmentID, GL_COMPILE_STATUS);
+        if (success == GL_FALSE) {
             int len = glGetShaderi(fragmentID, GL_INFO_LOG_LENGTH);
             System.err.println("failed compiling fragment shader XDDD: \n" + glGetShaderInfoLog(fragmentID, len) +"\nfile: " + filepath);
             assert false : "";
@@ -84,8 +87,8 @@ public class Shader {
         glAttachShader(shaderProgramID, fragmentID);
         glLinkProgram(shaderProgramID);
         //check for errs
-        succes = glGetProgrami(shaderProgramID, GL_LINK_STATUS);
-        if (succes == GL_FALSE) {
+        success = glGetProgrami(shaderProgramID, GL_LINK_STATUS);
+        if (success == GL_FALSE) {
             int len = glGetProgrami(shaderProgramID, GL_INFO_LOG_LENGTH);
             System.err.println("failed linking shaders XDDD: \n" + glGetShaderInfoLog(shaderProgramID, len) +"\nfile: " + filepath);
             assert false : "";
@@ -96,5 +99,12 @@ public class Shader {
     }
     public void detach() {
         glUseProgram(0);
+    }
+
+    public void uploadMat4f(String varName, Matrix4f mat4) {
+        int varLocation = glGetUniformLocation(shaderProgramID, varName);
+        FloatBuffer matBuffer = BufferUtils.createFloatBuffer(16);
+        mat4.get(matBuffer);
+        glUniformMatrix4fv(varLocation, false, matBuffer);
     }
 }
