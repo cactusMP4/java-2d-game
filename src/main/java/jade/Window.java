@@ -3,7 +3,6 @@ package jade;
 import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
-import util.Time;
 
 import java.util.Objects;
 
@@ -108,7 +107,7 @@ public class Window {
         Window.changeScene(0);
     }
     private void loop() {
-        float beginTime = Time.getTime();
+        float beginTime = (float)glfwGetTime();
         float endTime;
         float deltaTime = -1.0f;
         while(!glfwWindowShouldClose(glfwWindow)) {
@@ -124,11 +123,13 @@ public class Window {
             glfwSwapBuffers(glfwWindow);
 
             //count time
-            endTime = Time.getTime();
+            endTime = (float)glfwGetTime();
             deltaTime = endTime - beginTime;
             beginTime = endTime;
 
-//            System.out.println(1/deltaTime); //show FPS
+            if (1/deltaTime < 100) {
+                System.err.println("[WARNING]: low FPS: "+1/deltaTime);
+            }
         }
     }
 }
