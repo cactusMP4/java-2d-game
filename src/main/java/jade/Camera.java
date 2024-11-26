@@ -8,11 +8,17 @@ public class Camera {
     private Matrix4f projectionMatrix, viewMatrix;
     public Vector2f position;
 
-    public Camera(Vector2f position) {
+    public void camera(Vector2f position) {
         this.position = position;
         this.projectionMatrix = new Matrix4f();
         this.viewMatrix = new Matrix4f();
         adjustProjection();
+    }
+    public Camera(Vector2f position) {
+        camera(position);
+    }
+    public Camera() {
+        camera(new Vector2f(0, 0));
     }
 
     public void adjustProjection() {

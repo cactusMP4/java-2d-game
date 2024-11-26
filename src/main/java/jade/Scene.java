@@ -23,10 +23,8 @@ public abstract class Scene {
         isRunning = true;
     }
     public void addGameObjectToScene(GameObject go) {
-        if (!isRunning) {
-            gameObjects.add(go);
-        } else {
-            gameObjects.add(go);
+        gameObjects.add(go);
+        if (isRunning) {
             go.start();
             this.renderer.add(go);
         }

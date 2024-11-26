@@ -3,6 +3,7 @@ package jade;
 import components.SpriteRender;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
+import util.AssetPool;
 
 public class LevelEditorScene extends Scene {
     public LevelEditorScene() {
@@ -11,13 +12,13 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void init() {
-        this.camera = new Camera(new Vector2f(-250,0));
+        this.camera = new Camera();
 
         int xOffset = 10;
         int yOffset = 10;
 
-        float totalWidth = (float)(600 - xOffset * 2);
-        float totalHeight = (float)(300 - yOffset * 2);
+        float totalWidth = (float)(650 - xOffset * 2);
+        float totalHeight = (float)(650 - yOffset * 2);
         float sizeX = totalWidth / 100.0f;
         float sizeY = totalHeight / 100.0f;
 
@@ -31,7 +32,13 @@ public class LevelEditorScene extends Scene {
                 this.addGameObjectToScene(go);
             }
         }
+
+        loadResources();
     }
+    private void loadResources() {
+        AssetPool.getShader("src/assets/shaders/default.glsl");
+    }
+
     @Override
     public void render(float deltaTime) {
         for (GameObject go : this.gameObjects){
