@@ -100,7 +100,7 @@ public class RenderBatch {
     }
 
     public void render(){
-        //rebuffer all data every frame
+        //rebuff all data every frame
         glBindBuffer(GL_ARRAY_BUFFER, vboID);
         glBufferSubData(GL_ARRAY_BUFFER, 0, vertices);
 
@@ -202,5 +202,12 @@ public class RenderBatch {
 
     public boolean hasRoom() {
         return this.hasRoom;
+    }
+
+    public boolean hasTextureRoom(){
+        return this.textures.size() < 8;
+    }
+    public boolean hasTexture(Texture texture){
+        return this.textures.contains(texture);
     }
 }

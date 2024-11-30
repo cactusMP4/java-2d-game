@@ -128,7 +128,7 @@ public class Window {
             beginTime = endTime;
 
             if (1/deltaTime < 100) {
-                System.err.println("[WARNING]: low FPS: "+1/deltaTime);
+                System.out.println("[WARNING]: low FPS: "+1/deltaTime);
             }
         }
     }

@@ -7,16 +7,15 @@ import render.Texture;
 
 public class SpriteRender extends Component {
     private Vector4f color;
-    private Vector2f[] texCoords;
-    private Texture texture;
+    private Sprite sprite;
 
     public SpriteRender(Vector4f color) {
         this.color = color;
-        this.texture = null;
+        this.sprite = new Sprite(null);
     }
 
-    public SpriteRender(Texture texture) {
-        this.texture = texture;
+    public SpriteRender(Sprite sprite) {
+        this.sprite = sprite;
         this.color = new Vector4f(1,1,1,1);
     }
 
@@ -34,15 +33,10 @@ public class SpriteRender extends Component {
     }
 
     public Texture getTexture() {
-        return this.texture;
+        return sprite.getTexture();
     }
 
     public Vector2f[] getTexCoords() {
-        return new  Vector2f[] {
-            new Vector2f(1,0),
-            new Vector2f(1,1),
-            new Vector2f(0,1),
-            new Vector2f(0,0)
-        };
+        return sprite.getTexCoords();
     }
 }
