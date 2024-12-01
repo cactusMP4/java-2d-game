@@ -8,6 +8,8 @@ import render.Texture;
 import util.AssetPool;
 
 public class LevelEditorScene extends Scene {
+    private SpriteSheet spriteSheet;
+    private GameObject niko;
     public LevelEditorScene() {
 
     }
@@ -16,18 +18,11 @@ public class LevelEditorScene extends Scene {
     public void init() {
         loadResources();
         this.camera = new Camera();
+        spriteSheet = AssetPool.getSpriteSheet("src/assets/textures/spritesheet.png");
 
-        SpriteSheet sprites = AssetPool.getSpriteSheet("src/assets/textures/spritesheet.png");
-
-        for (int i = 0; i < 12; i++){
-            GameObject obj = new GameObject(Integer.toString(i), new Transform(new Vector2f(i*48,100), new Vector2f(48,64)));
-            obj.addComponent(new SpriteRender(sprites.getSprite(i)));
-            this.addGameObjectToScene(obj);
-        }
-
-        GameObject ss = new GameObject("SpriteSheet", new Transform(new Vector2f(0,200), new Vector2f(144,256)));
-        ss.addComponent(new SpriteRender(new Sprite(new Texture("src/assets/textures/spritesheet.png"))));
-        this.addGameObjectToScene(ss);
+        niko = new GameObject("niko", new Transform(new Vector2f(0,100), new Vector2f(96,128)));
+        niko.addComponent(new SpriteRender(spriteSheet.getSprite(3)));
+        this.addGameObjectToScene(niko);
     }
     private void loadResources() {
         AssetPool.getShader("src/assets/shaders/default.glsl");
@@ -35,8 +30,22 @@ public class LevelEditorScene extends Scene {
                 new SpriteSheet(AssetPool.getTexture("src/assets/textures/spritesheet.png"), 24,32,12));
     }
 
+    private int spriteIndex = 3;
+    private float spriteTime = 0.2f;
+    private float spriteTimeLeft = 0.0f;
     @Override
     public void render(float deltaTime) {
+        niko.transform.position.x += 69 * deltaTime;
+        spriteTimeLeft -= deltaTime;
+        if(spriteTimeLeft <= 0.0f){
+            spriteTimeLeft = spriteTime;
+            spriteIndex++;
+            if (spriteIndex > 5){
+                spriteIndex = 3;
+            }
+            niko.getComponent(SpriteRender.class).setSprite(spriteSheet.getSprite(spriteIndex));
+        }
+
         for (GameObject go : this.gameObjects){
             go.update(deltaTime);
         }
