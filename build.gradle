@@ -21,8 +21,25 @@ test {
 project.ext.lwjglVersion = "3.3.4"
 project.ext.jomlVersion = "1.10.7"
 project.ext.lwjglNatives = "natives-windows"
+project.ext.imguiVersion = '1.81.0'
 
 dependencies {
+    implementation "io.github.spair:imgui-java-app:1.81.0"
+
+    implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
+
+    ['', '-opengl', '-glfw'].each {
+        implementation "org.lwjgl:lwjgl$it:$lwjglVersion"
+        implementation "org.lwjgl:lwjgl$it::natives-windows"
+    }
+
+    implementation "io.github.spair:imgui-java-binding:$imguiVersion"
+    implementation "io.github.spair:imgui-java-lwjgl3:$imguiVersion"
+
+    implementation "io.github.spair:imgui-java-natives-windows:$imguiVersion"
+
+
+
     implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
 
     implementation "org.lwjgl:lwjgl"

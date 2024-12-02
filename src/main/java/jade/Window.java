@@ -13,13 +13,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 public class Window {
     //window stuff
-    private final int width, height;
+    private int width, height;
     private final String title;
     private long glfwWindow;
     private static Window window = null;
     //scene stuff
     private static Scene currentScene;
     //colors stuff
+    private ImGuiLayer imGuiLayer;
+
     public float r,g,b;
 
     private Window() {
@@ -82,7 +84,7 @@ public class Window {
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
-        glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
+        glfwWindowHint(GLFW_MAXIMIZED, GLFW_FALSE);
 
         //create the window
         glfwWindow = glfwCreateWindow(this.width, this.height, this.title, NULL, NULL);
@@ -93,6 +95,10 @@ public class Window {
         glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
         glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
         glfwSetKeyCallback(glfwWindow, KeyListener::keyCallback);
+        glfwSetWindowSizeCallback(glfwWindow, (w, newWidth, newHeight) -> {
+            Window.setWidth(newWidth);
+            Window.setHeight(newHeight);
+        });
 
         //OpenGL context current
         glfwMakeContextCurrent(glfwWindow);
@@ -106,6 +112,9 @@ public class Window {
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+
+        this.imGuiLayer = new ImGuiLayer(glfwWindow);
+        this.imGuiLayer.initImGui();
 
         Window.changeScene(0);
     }
@@ -123,6 +132,8 @@ public class Window {
                 currentScene.render(deltaTime);
             }
 
+            this.imGuiLayer.update(deltaTime);
+
             glfwSwapBuffers(glfwWindow);
 
             //count time
@@ -134,5 +145,15 @@ public class Window {
                 System.out.println("[WARNING]: low FPS: "+1/deltaTime);
             }
         }
+    }
+
+    public static int getWidth() {return getWindow().width;}
+    public static int getHeight() {return getWindow().height;}
+
+    public static void setWidth(int newWidth) {
+        getWindow().width = newWidth;
+    }
+    public static void setHeight(int newHeight) {
+        getWindow().height = newHeight;
     }
 }
