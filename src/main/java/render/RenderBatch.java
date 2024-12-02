@@ -2,6 +2,7 @@ package render;
 
 import components.SpriteRender;
 import jade.Window;
+import org.jetbrains.annotations.NotNull;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 import util.AssetPool;
@@ -14,7 +15,7 @@ import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
-public class RenderBatch {
+public class RenderBatch implements Comparable<RenderBatch>{
     //pos               //color                         //tex cords     //tex id
     //float, float,     float, float, float, float,     float, float,   float
     private final int POS_SIZE = 2;
@@ -39,8 +40,10 @@ public class RenderBatch {
     private int vaoID, vboID;
     private int maxBatchSize;
     private Shader shader;
+    private int layer;
 
-    public RenderBatch(int maxBatchSize) {
+    public RenderBatch(int maxBatchSize, int layer) {
+        this.layer = layer;
         shader = AssetPool.getShader("src/assets/shaders/default.glsl");
         this.sprites = new SpriteRender[maxBatchSize];
         this.maxBatchSize = maxBatchSize;
@@ -212,11 +215,12 @@ public class RenderBatch {
     public boolean hasRoom() {
         return this.hasRoom;
     }
+    public boolean hasTextureRoom(){return this.textures.size() < 8;}
+    public boolean hasTexture(Texture texture){return this.textures.contains(texture);}
+    public int getLayer() {return this.layer;}
 
-    public boolean hasTextureRoom(){
-        return this.textures.size() < 8;
-    }
-    public boolean hasTexture(Texture texture){
-        return this.textures.contains(texture);
+    @Override
+    public int compareTo(@NotNull RenderBatch o) {
+        return Integer.compare(this.layer, o.getLayer());
     }
 }

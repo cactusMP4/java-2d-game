@@ -104,6 +104,9 @@ public class Window {
 
         GL.createCapabilities();
 
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+
         Window.changeScene(0);
     }
     private void loop() {
@@ -127,7 +130,7 @@ public class Window {
             deltaTime = endTime - beginTime;
             beginTime = endTime;
 
-            if (1/deltaTime < 100) {
+            if (1/deltaTime < 30) {
                 System.out.println("[WARNING]: low FPS: "+1/deltaTime);
             }
         }

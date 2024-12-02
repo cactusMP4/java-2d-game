@@ -20,8 +20,15 @@ public class LevelEditorScene extends Scene {
         this.camera = new Camera();
         spriteSheet = AssetPool.getSpriteSheet("src/assets/textures/spritesheet.png");
 
+        GameObject blend1 = new GameObject("blend1", new Transform(new Vector2f(200,100), new Vector2f(100,100)));
+        blend1.addComponent(new SpriteRender(new Sprite(AssetPool.getTexture("src/assets/textures/blendImage1.png"))));
+        this.addGameObjectToScene(blend1);
+        GameObject blend2 = new GameObject("blend2", new Transform(new Vector2f(230,150), new Vector2f(100,100)));
+        blend2.addComponent(new SpriteRender(new Sprite(AssetPool.getTexture("src/assets/textures/blendImage2.png"))));
+        this.addGameObjectToScene(blend2);
+
         niko = new GameObject("niko", new Transform(new Vector2f(0,100), new Vector2f(96,128)));
-        niko.addComponent(new SpriteRender(spriteSheet.getSprite(3)));
+        niko.addComponent(new SpriteRender(spriteSheet.getSprite(1)));
         this.addGameObjectToScene(niko);
     }
     private void loadResources() {

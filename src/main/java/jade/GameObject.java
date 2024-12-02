@@ -7,17 +7,25 @@ public class GameObject {
     private String name;
     private List<Component> components;
     public Transform transform;
+    private int layer;
 
     public GameObject(String name){
         this.name = name;
         this.components = new ArrayList<>();
         this.transform = new Transform();
+        this.layer = 0;
     }
-
     public GameObject(String name, Transform transform){
         this.name = name;
         this.components = new ArrayList<>();
         this.transform = transform;
+        this.layer = 0;
+    }
+    public GameObject(String name, Transform transform, int layer){
+        this.name = name;
+        this.components = new ArrayList<>();
+        this.transform = transform;
+        this.layer = layer;
     }
 
     public <T extends Component> T getComponent(Class<T> componentClass){
@@ -59,4 +67,5 @@ public class GameObject {
     }
 
     public String getName() {return this.name;}
+    public int getLayer() {return this.layer;}
 }
