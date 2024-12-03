@@ -3,7 +3,9 @@ package jade;
 import components.Sprite;
 import components.SpriteRender;
 import components.SpriteSheet;
+import imgui.ImGui;
 import org.joml.Vector2f;
+import org.joml.Vector4f;
 import render.Texture;
 import util.AssetPool;
 
@@ -23,13 +25,19 @@ public class LevelEditorScene extends Scene {
         GameObject blend1 = new GameObject("blend1", new Transform(new Vector2f(200,100), new Vector2f(100,100)));
         blend1.addComponent(new SpriteRender(new Sprite(AssetPool.getTexture("src/assets/textures/blendImage1.png"))));
         this.addGameObjectToScene(blend1);
-        GameObject blend2 = new GameObject("blend2", new Transform(new Vector2f(230,150), new Vector2f(100,100)));
+        GameObject blend2 = new GameObject("blend2", new Transform(new Vector2f(230,150), new Vector2f(100,100)),1);
         blend2.addComponent(new SpriteRender(new Sprite(AssetPool.getTexture("src/assets/textures/blendImage2.png"))));
         this.addGameObjectToScene(blend2);
+
+        GameObject block = new GameObject("block", new Transform(new Vector2f(400,150), new Vector2f(100,100)));
+        block.addComponent(new SpriteRender(new  Vector4f(0.3f,1,0.3f,1)));
+        this.addGameObjectToScene(block);
 
         niko = new GameObject("niko", new Transform(new Vector2f(0,100), new Vector2f(96,128)));
         niko.addComponent(new SpriteRender(spriteSheet.getSprite(1)));
         this.addGameObjectToScene(niko);
+
+        this.activeObject=niko;
     }
     private void loadResources() {
         AssetPool.getShader("src/assets/shaders/default.glsl");
@@ -57,5 +65,12 @@ public class LevelEditorScene extends Scene {
             go.update(deltaTime);
         }
         this.renderer.render();
+    }
+
+    @Override
+    public void imgui(){
+        ImGui.begin("Level Editor");
+        ImGui.text("SPERMA KONYA");
+        ImGui.end();
     }
 }

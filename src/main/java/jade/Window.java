@@ -132,7 +132,7 @@ public class Window {
                 currentScene.render(deltaTime);
             }
 
-            this.imGuiLayer.update(deltaTime);
+            this.imGuiLayer.update(deltaTime, currentScene);
 
             glfwSwapBuffers(glfwWindow);
 

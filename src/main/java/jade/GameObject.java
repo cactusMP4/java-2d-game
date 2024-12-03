@@ -66,6 +66,11 @@ public class GameObject {
         }
     }
 
-    public String getName() {return this.name;}
+    public void imgui(){
+        for (Component c : components){
+            c.imgui();
+        }
+    }
+
     public int getLayer() {return this.layer;}
 }
