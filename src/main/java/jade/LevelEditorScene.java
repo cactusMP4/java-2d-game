@@ -2,6 +2,7 @@ package jade;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import components.RigidBody;
 import components.Sprite;
 import components.SpriteRender;
 import components.SpriteSheet;
@@ -21,7 +22,10 @@ public class LevelEditorScene extends Scene {
     public void init() {
         loadResources();
         this.camera = new Camera();
-        if(levelLoaded){return;}
+        if(levelLoaded){
+            this.activeObject = gameObjects.get(0);
+            return;
+        }
 
         spriteSheet = AssetPool.getSpriteSheet("src/assets/textures/spritesheet.png");
 
@@ -29,12 +33,14 @@ public class LevelEditorScene extends Scene {
         SpriteRender blockSprite = new SpriteRender();
         blockSprite.setColor(new Vector4f(0.3f, 1, 0.3f, 1));
         block.addComponent(blockSprite);
+        block.addComponent(new RigidBody());
         this.addGameObjectToScene(block);
 
         GameObject niko = new GameObject("niko", new Transform(new Vector2f(200,150), new Vector2f(100,100)));
         SpriteRender nikoSprite = new SpriteRender();
         nikoSprite.setSprite(spriteSheet.getSprite(7));
         niko.addComponent(nikoSprite);
+        niko.addComponent(new RigidBody());
         this.addGameObjectToScene(niko);
 
         this.activeObject=block;
@@ -55,6 +61,5 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void imgui(){
-
     }
 }
