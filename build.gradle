@@ -24,15 +24,13 @@ project.ext.lwjglNatives = "natives-windows"
 project.ext.imguiVersion = '1.81.0'
 
 dependencies {
+    //ImGui
     implementation "io.github.spair:imgui-java-app:$imguiVersion"
-
     implementation "io.github.spair:imgui-java-binding:$imguiVersion"
     implementation "io.github.spair:imgui-java-lwjgl3:$imguiVersion"
-
     implementation "io.github.spair:imgui-java-natives-windows:$imguiVersion"
 
-/////////////////////////////////////////////////////////////////////////////////
-
+    //LWJGL
     implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
 
     implementation "org.lwjgl:lwjgl"
@@ -50,4 +48,7 @@ dependencies {
     runtimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-stb::$lwjglNatives"
     implementation "org.joml:joml:${jomlVersion}"
+
+    //GSON
+    implementation 'com.google.code.gson:gson:2.11.0'
 }

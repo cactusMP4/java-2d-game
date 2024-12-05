@@ -8,22 +8,22 @@ import org.joml.Vector4f;
 import render.Texture;
 
 public class SpriteRender extends Component {
-    private Vector4f color;
-    private Sprite sprite;
+    private Vector4f color = new Vector4f(1f, 1f, 1f, 1f);
+    private Sprite sprite = new Sprite();
 
-    private boolean isDirty = true;
+    private transient Transform lastTransform;
+    private transient boolean isDirty = true;
 
-    private Transform lastTransform;
 
-    public SpriteRender(Vector4f color) {
-        this.color = color;
-        this.sprite = new Sprite(null);
-    }
-
-    public SpriteRender(Sprite sprite) {
-        this.sprite = sprite;
-        this.color = new Vector4f(1,1,1,1);
-    }
+//    public SpriteRender(Vector4f color) {
+//        this.color = color;
+//        this.sprite = new Sprite(null);
+//    }
+//
+//    public SpriteRender(Sprite sprite) {
+//        this.sprite = sprite;
+//        this.color = new Vector4f(1,1,1,1);
+//    }
 
     @Override
     public void start(){

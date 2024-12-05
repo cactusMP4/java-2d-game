@@ -13,7 +13,7 @@ public class AssetPool {
     private static Map<String, Texture> textures = new HashMap<>();
     private static Map<String, SpriteSheet> spriteSheets = new HashMap<>();
 
-    private static final Texture missing = new Texture("src/assets/textures/missing.png");
+    private static final Texture missing = new Texture();
 
     public static Shader getShader(String path) {
         File file = new File(path);
@@ -39,7 +39,8 @@ public class AssetPool {
         } else {
             try {
                 System.out.println("creating texture " + path);
-                Texture texture = new Texture(path);
+                Texture texture = new Texture();
+                texture.init(path);
                 AssetPool.textures.put(file.getAbsolutePath(), texture);
                 return texture;
             } catch (Exception e) {

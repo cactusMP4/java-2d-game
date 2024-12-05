@@ -29,7 +29,10 @@ public class SpriteSheet {
                     new Vector2f(leftX, topY),
                     new Vector2f(leftX, bottomY),
             };
-            Sprite sprite = new Sprite(this.texture, texCoord);
+            Sprite sprite = new Sprite();
+            sprite.setTexture(this.texture);
+            sprite.setTexCoords(texCoord);
+
             this.sprites.add(sprite);
 
             currentX += spriteWidth;

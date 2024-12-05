@@ -1,5 +1,7 @@
 package jade;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import components.Sprite;
 import components.SpriteRender;
 import components.SpriteSheet;
@@ -11,7 +13,6 @@ import util.AssetPool;
 
 public class LevelEditorScene extends Scene {
     private SpriteSheet spriteSheet;
-    private GameObject niko;
     public LevelEditorScene() {
 
     }
@@ -20,24 +21,23 @@ public class LevelEditorScene extends Scene {
     public void init() {
         loadResources();
         this.camera = new Camera();
+        if(levelLoaded){return;}
+
         spriteSheet = AssetPool.getSpriteSheet("src/assets/textures/spritesheet.png");
 
-        GameObject blend1 = new GameObject("blend1", new Transform(new Vector2f(200,100), new Vector2f(100,100)));
-        blend1.addComponent(new SpriteRender(new Sprite(AssetPool.getTexture("src/assets/textures/blendImage1.png"))));
-        this.addGameObjectToScene(blend1);
-        GameObject blend2 = new GameObject("blend2", new Transform(new Vector2f(230,150), new Vector2f(100,100)),1);
-        blend2.addComponent(new SpriteRender(new Sprite(AssetPool.getTexture("src/assets/textures/blendImage2.png"))));
-        this.addGameObjectToScene(blend2);
-
         GameObject block = new GameObject("block", new Transform(new Vector2f(400,150), new Vector2f(100,100)));
-        block.addComponent(new SpriteRender(new  Vector4f(0.3f,1,0.3f,1)));
+        SpriteRender blockSprite = new SpriteRender();
+        blockSprite.setColor(new Vector4f(0.3f, 1, 0.3f, 1));
+        block.addComponent(blockSprite);
         this.addGameObjectToScene(block);
 
-        niko = new GameObject("niko", new Transform(new Vector2f(0,100), new Vector2f(96,128)));
-        niko.addComponent(new SpriteRender(spriteSheet.getSprite(1)));
+        GameObject niko = new GameObject("niko", new Transform(new Vector2f(200,150), new Vector2f(100,100)));
+        SpriteRender nikoSprite = new SpriteRender();
+        nikoSprite.setSprite(spriteSheet.getSprite(7));
+        niko.addComponent(nikoSprite);
         this.addGameObjectToScene(niko);
 
-        this.activeObject=niko;
+        this.activeObject=block;
     }
     private void loadResources() {
         AssetPool.getShader("src/assets/shaders/default.glsl");
@@ -45,22 +45,8 @@ public class LevelEditorScene extends Scene {
                 new SpriteSheet(AssetPool.getTexture("src/assets/textures/spritesheet.png"), 24,32,12));
     }
 
-    private int spriteIndex = 3;
-    private float spriteTime = 0.2f;
-    private float spriteTimeLeft = 0.0f;
     @Override
     public void render(float deltaTime) {
-        niko.transform.position.x += 69 * deltaTime;
-        spriteTimeLeft -= deltaTime;
-        if(spriteTimeLeft <= 0.0f){
-            spriteTimeLeft = spriteTime;
-            spriteIndex++;
-            if (spriteIndex > 5){
-                spriteIndex = 3;
-            }
-            niko.getComponent(SpriteRender.class).setSprite(spriteSheet.getSprite(spriteIndex));
-        }
-
         for (GameObject go : this.gameObjects){
             go.update(deltaTime);
         }
@@ -69,8 +55,6 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void imgui(){
-        ImGui.begin("Level Editor");
-        ImGui.text("SPERMA KONYA");
-        ImGui.end();
+
     }
 }

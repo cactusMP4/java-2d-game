@@ -122,6 +122,8 @@ public class Window {
         float beginTime = (float)glfwGetTime();
         float endTime;
         float deltaTime = -1.0f;
+
+        currentScene.load();
         while(!glfwWindowShouldClose(glfwWindow)) {
             //Poll events
             glfwPollEvents();
@@ -145,6 +147,7 @@ public class Window {
                 System.out.println("[WARNING]: low FPS: "+1/deltaTime);
             }
         }
+        currentScene.save();
     }
 
     public static int getWidth() {return getWindow().width;}

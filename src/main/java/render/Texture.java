@@ -14,7 +14,9 @@ public class Texture {
     private int textureID;
     private int width, height;
 
-    public Texture(String filePath) {
+//    public Texture(String filePath) {}
+
+    public void init(String filePath) {
         this.filePath = filePath;
 
         //Generate texture
@@ -49,6 +51,7 @@ public class Texture {
         }
         stbi_image_free(image);
     }
+
     public void bind() {
         glBindTexture(GL_TEXTURE_2D, textureID);
     }
