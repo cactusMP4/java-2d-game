@@ -1,15 +1,13 @@
 package jade;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import components.RigidBody;
 import components.Sprite;
 import components.SpriteRender;
 import components.SpriteSheet;
 import imgui.ImGui;
+import imgui.ImVec2;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
-import render.Texture;
 import util.AssetPool;
 
 public class LevelEditorScene extends Scene {
@@ -22,12 +20,12 @@ public class LevelEditorScene extends Scene {
     public void init() {
         loadResources();
         this.camera = new Camera();
+        spriteSheet = AssetPool.getSpriteSheet("spritesheets/spritesheet.png");
+
         if(levelLoaded){
-            this.activeObject = gameObjects.get(0);
+            this.activeObject = gameObjects.getFirst();
             return;
         }
-
-        spriteSheet = AssetPool.getSpriteSheet("src/assets/textures/spritesheet.png");
 
         GameObject block = new GameObject("block", new Transform(new Vector2f(400,150), new Vector2f(100,100)));
         SpriteRender blockSprite = new SpriteRender();
@@ -46,9 +44,9 @@ public class LevelEditorScene extends Scene {
         this.activeObject=block;
     }
     private void loadResources() {
-        AssetPool.getShader("src/assets/shaders/default.glsl");
-        AssetPool.addSpriteSheet("src/assets/textures/spritesheet.png",
-                new SpriteSheet(AssetPool.getTexture("src/assets/textures/spritesheet.png"), 24,32,12));
+        AssetPool.getShader("default.glsl");
+        AssetPool.addSpriteSheet("spritesheets/spritesheet.png",
+                new SpriteSheet(AssetPool.getTexture("spritesheets/spritesheet.png"), 24,32,12));
     }
 
     @Override
@@ -61,5 +59,36 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void imgui(){
+        ImGui.begin("some blocks");
+
+        ImVec2 windowPos = new ImVec2();
+        ImGui.getWindowPos(windowPos);
+        ImVec2 windowSize = new ImVec2();
+        ImGui.getWindowSize(windowSize);
+        ImVec2 itemSpacing = new ImVec2();
+        ImGui.getStyle().getItemSpacing(itemSpacing);
+
+        float windowX2 = windowPos.x + windowSize.x;
+        for (int i = 0; i < spriteSheet.getSize(); i++){
+            Sprite sprite = spriteSheet.getSprite(i);
+            float spriteWidth = sprite.getWidth() * 4;
+            float spriteHeight = sprite.getHeight() * 4;
+            int id = sprite.getTexId();
+            Vector2f[] texCords = sprite.getTexCords();
+
+            if (ImGui.imageButton(id, spriteWidth, spriteHeight, texCords[0].x, texCords[0].y, texCords[2].x, texCords[2].y)){
+                System.out.println(i);
+            }
+
+            ImVec2 lastButtonPos = new ImVec2();
+            ImGui.getItemRectMax(lastButtonPos);
+            float lastButtonX2 = lastButtonPos.x;
+            float nextButtonX2 = lastButtonX2 + itemSpacing.x + spriteWidth;
+            if (i + 1 < spriteSheet.getSize() && nextButtonX2 < windowX2){
+                ImGui.sameLine();
+            }
+        }
+
+        ImGui.end();
     }
 }

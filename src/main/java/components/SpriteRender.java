@@ -47,7 +47,7 @@ public class SpriteRender extends Component {
 
     public Vector4f getColor() {return color;}
     public Texture getTexture() {return sprite.getTexture();}
-    public Vector2f[] getTexCoords() {return sprite.getTexCoords();}
+    public Vector2f[] getTexCoords() {return sprite.getTexCords();}
 
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;

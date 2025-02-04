@@ -141,9 +141,9 @@ public class Window {
             deltaTime = endTime - beginTime;
             beginTime = endTime;
 
-            if (1/deltaTime < 30) {
-                System.out.println("[WARNING]: low FPS: "+1/deltaTime);
-            }
+//            if (1/deltaTime < 30) {
+//                System.out.println("[WARNING]: low FPS: "+1/deltaTime);
+//            }
         }
         currentScene.save();
     }

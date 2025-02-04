@@ -44,7 +44,7 @@ public class RenderBatch implements Comparable<RenderBatch>{
 
     public RenderBatch(int maxBatchSize, int layer) {
         this.layer = layer;
-        shader = AssetPool.getShader("src/assets/shaders/default.glsl");
+        shader = AssetPool.getShader("default.glsl");
         this.sprites = new SpriteRender[maxBatchSize];
         this.maxBatchSize = maxBatchSize;
         //                                 4 vertices quads

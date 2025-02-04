@@ -23,7 +23,7 @@ public class SpriteSheet {
             float leftX = currentX / (float)texture.getWidth();
             float bottomY = currentY / (float)texture.getHeight();
 
-            Vector2f[] texCoord = {
+            Vector2f[] texCord = {
                     new Vector2f(rightX, bottomY),
                     new Vector2f(rightX, topY),
                     new Vector2f(leftX, topY),
@@ -31,7 +31,9 @@ public class SpriteSheet {
             };
             Sprite sprite = new Sprite();
             sprite.setTexture(this.texture);
-            sprite.setTexCoords(texCoord);
+            sprite.setTexCords(texCord);
+            sprite.setWidth(spriteWidth);
+            sprite.setHeight(spriteHeight);
 
             this.sprites.add(sprite);
 
@@ -42,7 +44,6 @@ public class SpriteSheet {
             }
         }
     }
-    public Sprite getSprite(int index) {
-        return this.sprites.get(index);
-    }
+    public Sprite getSprite(int index) {return this.sprites.get(index);}
+    public int getSize(){return sprites.size();}
 }
