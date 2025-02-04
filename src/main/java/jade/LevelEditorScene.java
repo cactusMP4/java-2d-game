@@ -51,6 +51,7 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void render(float deltaTime) {
+        System.out.println(MouseListener.getOrthoX()+"; "+MouseListener.getOrthoY());
         for (GameObject go : this.gameObjects){
             go.update(deltaTime);
         }
@@ -76,9 +77,11 @@ public class LevelEditorScene extends Scene {
             int id = sprite.getTexId();
             Vector2f[] texCords = sprite.getTexCords();
 
+            ImGui.pushID(i);
             if (ImGui.imageButton(id, spriteWidth, spriteHeight, texCords[0].x, texCords[0].y, texCords[2].x, texCords[2].y)){
                 System.out.println(i);
             }
+            ImGui.popID();
 
             ImVec2 lastButtonPos = new ImVec2();
             ImGui.getItemRectMax(lastButtonPos);

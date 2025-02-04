@@ -1,5 +1,8 @@
 package jade;
 
+import org.joml.Vector2f;
+import org.joml.Vector4f;
+
 import static org.lwjgl.glfw.GLFW.*;
 
 public class MouseListener {
@@ -55,6 +58,24 @@ public class MouseListener {
     }
     public static float getMouseX() {return (float) getInstance().xPos;}
     public static float getMouseY() {return (float) getInstance().yPos;}
+    public static float getOrthoX() {
+        float currentX = getMouseX();
+        currentX = (currentX / (float) Window.getWidth()) * 2.0f - 1.0f;
+        Vector4f tmp = new Vector4f(currentX, 0, 0, 1);
+        tmp.mul(Window.getScene().getCamera().getInverseProjection()).mul(Window.getScene().getCamera().getInverseView());
+        currentX = tmp.x;
+
+        return currentX;
+    }
+    public static float getOrthoY() {
+        float currentY = getMouseY();
+        currentY = (currentY / (float) Window.getWidth()) * 2.0f - 1.0f;
+        Vector4f tmp = new Vector4f(0, currentY, 0, 1);
+        tmp.mul(Window.getScene().getCamera().getInverseProjection()).mul(Window.getScene().getCamera().getInverseView());
+        currentY = tmp.y;
+
+        return currentY;
+    }
     public static float getMouseDx() {return (float) (getInstance().lastX - getInstance().xPos);}
     public static float getMouseDy() {return (float) (getInstance().lastY - getInstance().yPos);}
     public static float getMouseScrollX() {return (float) (getInstance().scrollX);}
