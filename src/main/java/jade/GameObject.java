@@ -1,9 +1,14 @@
 package jade;
 
+import components.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameObject {
+    private static int ID_COUNTER = 0;
+    private int uid = -1;
+
     private String name;
     private List<Component> components;
     public Transform transform;
@@ -14,18 +19,21 @@ public class GameObject {
         this.components = new ArrayList<>();
         this.transform = new Transform();
         this.layer = 0;
+        this.uid = ID_COUNTER++;
     }
     public GameObject(String name, Transform transform){
         this.name = name;
         this.components = new ArrayList<>();
         this.transform = transform;
         this.layer = 0;
+        this.uid = ID_COUNTER++;
     }
     public GameObject(String name, Transform transform, int layer){
         this.name = name;
         this.components = new ArrayList<>();
         this.transform = transform;
         this.layer = layer;
+        this.uid = ID_COUNTER++;
     }
 
     public <T extends Component> T getComponent(Class<T> componentClass){
@@ -41,6 +49,7 @@ public class GameObject {
         }
         return null;
     }
+    public List<Component> getAllComponents() {return this.components;}
     public <T extends Component> void removeComponent(Class<T> componentClass){
         for (int i=0; i< components.size(); i++){
             Component c = components.get(i);
@@ -51,6 +60,7 @@ public class GameObject {
         }
     }
     public void addComponent(Component c){
+        c.generateID();
         this.components.add(c);
         c.gameObject = this;
     }
@@ -71,6 +81,7 @@ public class GameObject {
             c.imgui();
         }
     }
-
     public int getLayer() {return this.layer;}
+    public static void init(int maxId){ID_COUNTER = maxId;}
+    public int getUid() {return this.uid;}
 }

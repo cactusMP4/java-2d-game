@@ -1,7 +1,5 @@
 package components;
 
-import jade.Component;
-
 public class FontRender extends Component {
     public FontRender() {
         gameObject = null;

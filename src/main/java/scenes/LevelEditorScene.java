@@ -1,17 +1,19 @@
-package jade;
+package scenes;
 
-import components.RigidBody;
-import components.Sprite;
-import components.SpriteRender;
-import components.SpriteSheet;
+import components.*;
 import imgui.ImGui;
 import imgui.ImVec2;
+import jade.*;
 import org.joml.Vector2f;
+import org.joml.Vector3f;
 import org.joml.Vector4f;
+import render.DebugDraw;
 import util.AssetPool;
 
 public class LevelEditorScene extends Scene {
     private SpriteSheet spriteSheet;
+
+    MouseControls mouseControls = new MouseControls();
     public LevelEditorScene() {
 
     }
@@ -22,8 +24,11 @@ public class LevelEditorScene extends Scene {
         this.camera = new Camera();
         spriteSheet = AssetPool.getSpriteSheet("spritesheets/spritesheet.png");
 
+        DebugDraw.addLine2D(new Vector2f(200,200), new Vector2f(800,700), new Vector3f(0,1,0), 100);
+
         if(levelLoaded){
             this.activeObject = gameObjects.getFirst();
+            this.activeObject.addComponent(new RigidBody());
             return;
         }
 
@@ -51,7 +56,8 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void render(float deltaTime) {
-        System.out.println(MouseListener.getOrthoX()+"; "+MouseListener.getOrthoY());
+        mouseControls.update(deltaTime);
+
         for (GameObject go : this.gameObjects){
             go.update(deltaTime);
         }
@@ -79,7 +85,8 @@ public class LevelEditorScene extends Scene {
 
             ImGui.pushID(i);
             if (ImGui.imageButton(id, spriteWidth, spriteHeight, texCords[0].x, texCords[0].y, texCords[2].x, texCords[2].y)){
-                System.out.println(i);
+                GameObject object = Prefabs.generateSpriteObj(sprite, spriteWidth, spriteHeight);
+                mouseControls.pickupObj(object);
             }
             ImGui.popID();
 

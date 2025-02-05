@@ -3,6 +3,10 @@ package jade;
 import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
+import render.DebugDraw;
+import scenes.LevelEditorScene;
+import scenes.LevelScene;
+import scenes.Scene;
 
 import java.util.Objects;
 
@@ -125,10 +129,14 @@ public class Window {
         while(!glfwWindowShouldClose(glfwWindow)) {
             //Poll events
             glfwPollEvents();
+
+            DebugDraw.beginFrame();
+
             glClearColor(r,g,b,1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
 
             if (deltaTime >= 0.0f) {
+                DebugDraw.draw();
                 currentScene.render(deltaTime);
             }
 
