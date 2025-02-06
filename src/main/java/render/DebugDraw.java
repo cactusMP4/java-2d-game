@@ -107,4 +107,20 @@ public class DebugDraw {
         if (lines.size() >= MAX_LINES) return;
         DebugDraw.lines.add(new Line2D(start,end,color,lifetime));
     }
+
+//    public static void addBox2D(Vector2f center, Vector2f size, float rotation, Vector3f color, float lifetime){
+//        Vector2f min = new Vector2f(center).sub(new Vector2f(size).div(2.0f));
+//        Vector2f max = new Vector2f(center).add(new Vector2f(size).div(2.0f));
+//
+//        Vector2f[] vertices = {
+//            new Vector2f(min.x, min.y), new Vector2f(min.x, min.y),
+//            new Vector2f(max.x, max.y), new Vector2f(max.x, min.y)
+//        };
+//
+//        if (rotation != 0.0f){
+//            for (Vector2f vert : vertices){
+//                JMath.rotate(vert, rotation, center);
+//            }
+//        }
+//    }
 }

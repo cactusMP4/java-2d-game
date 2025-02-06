@@ -12,6 +12,7 @@ import util.AssetPool;
 
 public class LevelEditorScene extends Scene {
     private SpriteSheet spriteSheet;
+    private SpriteSheet tilemap;
 
     MouseControls mouseControls = new MouseControls();
     public LevelEditorScene() {
@@ -23,6 +24,7 @@ public class LevelEditorScene extends Scene {
         loadResources();
         this.camera = new Camera();
         spriteSheet = AssetPool.getSpriteSheet("spritesheets/spritesheet.png");
+        tilemap = AssetPool.getSpriteSheet("spritesheets/tilemap.png");
 
         DebugDraw.addLine2D(new Vector2f(200,200), new Vector2f(800,700), new Vector3f(0,1,0), 100);
 
@@ -32,7 +34,7 @@ public class LevelEditorScene extends Scene {
             return;
         }
 
-        GameObject block = new GameObject("block", new Transform(new Vector2f(400,150), new Vector2f(100,100)));
+        GameObject block = new GameObject("block", new Transform(new Vector2f(400,150), new Vector2f(100,100)),1);
         SpriteRender blockSprite = new SpriteRender();
         blockSprite.setColor(new Vector4f(0.3f, 1, 0.3f, 1));
         block.addComponent(blockSprite);
@@ -52,6 +54,8 @@ public class LevelEditorScene extends Scene {
         AssetPool.getShader("default.glsl");
         AssetPool.addSpriteSheet("spritesheets/spritesheet.png",
                 new SpriteSheet(AssetPool.getTexture("spritesheets/spritesheet.png"), 24,32,12));
+        AssetPool.addSpriteSheet("spritesheets/tilemap.png",
+                new SpriteSheet(AssetPool.getTexture("spritesheets/tilemap.png"), 64,64,20));
     }
 
     @Override
@@ -76,8 +80,8 @@ public class LevelEditorScene extends Scene {
         ImGui.getStyle().getItemSpacing(itemSpacing);
 
         float windowX2 = windowPos.x + windowSize.x;
-        for (int i = 0; i < spriteSheet.getSize(); i++){
-            Sprite sprite = spriteSheet.getSprite(i);
+        for (int i = 0; i < tilemap.getSize(); i++){
+            Sprite sprite = tilemap.getSprite(i);
             float spriteWidth = sprite.getWidth() * 4;
             float spriteHeight = sprite.getHeight() * 4;
             int id = sprite.getTexId();
@@ -94,7 +98,7 @@ public class LevelEditorScene extends Scene {
             ImGui.getItemRectMax(lastButtonPos);
             float lastButtonX2 = lastButtonPos.x;
             float nextButtonX2 = lastButtonX2 + itemSpacing.x + spriteWidth;
-            if (i + 1 < spriteSheet.getSize() && nextButtonX2 < windowX2){
+            if (i + 1 < tilemap.getSize() && nextButtonX2 < windowX2){
                 ImGui.sameLine();
             }
         }
