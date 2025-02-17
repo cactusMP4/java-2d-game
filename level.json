@@ -1,0 +1,289 @@
+[
+  {
+    "uid": 1,
+    "name": "block",
+    "components": [
+      {
+        "type": "components.SpriteRender",
+        "properties": {
+          "color": {
+            "x": 0.3,
+            "y": 1.0,
+            "z": 0.3,
+            "w": 1.0
+          },
+          "sprite": {
+            "width": 0.0,
+            "height": 0.0,
+            "texCoords": [
+              {
+                "x": 1.0,
+                "y": 0.0
+              },
+              {
+                "x": 1.0,
+                "y": 1.0
+              },
+              {
+                "x": 0.0,
+                "y": 1.0
+              },
+              {
+                "x": 0.0,
+                "y": 0.0
+              }
+            ]
+          },
+          "uid": 2
+        }
+      },
+      {
+        "type": "components.RigidBody",
+        "properties": {
+          "colliderType": 0,
+          "friction": 0.8,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.5,
+            "z": 0.0
+          },
+          "uid": 3
+        }
+      },
+      {
+        "type": "components.RigidBody",
+        "properties": {
+          "colliderType": 0,
+          "friction": 0.8,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.5,
+            "z": 0.0
+          },
+          "uid": 8
+        }
+      },
+      {
+        "type": "components.RigidBody",
+        "properties": {
+          "colliderType": 0,
+          "friction": 0.8,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.5,
+            "z": 0.0
+          },
+          "uid": 12
+        }
+      },
+      {
+        "type": "components.RigidBody",
+        "properties": {
+          "colliderType": 0,
+          "friction": 0.8,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.5,
+            "z": 0.0
+          },
+          "uid": 15
+        }
+      }
+    ],
+    "transform": {
+      "position": {
+        "x": 400.0,
+        "y": 150.0
+      },
+      "scale": {
+        "x": 100.0,
+        "y": 100.0
+      }
+    },
+    "layer": 1
+  },
+  {
+    "uid": 2,
+    "name": "niko",
+    "components": [
+      {
+        "type": "components.SpriteRender",
+        "properties": {
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "sprite": {
+            "width": 24.0,
+            "height": 32.0,
+            "texture": {
+              "filePath": "src/assets/textures/spritesheets/spritesheet.png",
+              "textureID": 2,
+              "width": 72,
+              "height": 128
+            },
+            "texCoords": [
+              {
+                "x": 0.6666667,
+                "y": 0.5
+              },
+              {
+                "x": 0.6666667,
+                "y": 0.75
+              },
+              {
+                "x": 0.33333334,
+                "y": 0.75
+              },
+              {
+                "x": 0.33333334,
+                "y": 0.5
+              }
+            ]
+          },
+          "uid": 4
+        }
+      },
+      {
+        "type": "components.RigidBody",
+        "properties": {
+          "colliderType": 0,
+          "friction": 0.8,
+          "velocity": {
+            "x": 0.0,
+            "y": 0.5,
+            "z": 0.0
+          },
+          "uid": 5
+        }
+      }
+    ],
+    "transform": {
+      "position": {
+        "x": 200.0,
+        "y": 150.0
+      },
+      "scale": {
+        "x": 100.0,
+        "y": 100.0
+      }
+    },
+    "layer": 0
+  },
+  {
+    "uid": 3,
+    "name": "Sprite_Object_gen",
+    "components": [
+      {
+        "type": "components.SpriteRender",
+        "properties": {
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "sprite": {
+            "width": 64.0,
+            "height": 64.0,
+            "texture": {
+              "filePath": "src/assets/textures/spritesheets/tilemap.png",
+              "textureID": 3,
+              "width": 640,
+              "height": 128
+            },
+            "texCoords": [
+              {
+                "x": 0.6,
+                "y": 0.5
+              },
+              {
+                "x": 0.6,
+                "y": 1.0
+              },
+              {
+                "x": 0.5,
+                "y": 1.0
+              },
+              {
+                "x": 0.5,
+                "y": 0.5
+              }
+            ]
+          },
+          "uid": 9
+        }
+      }
+    ],
+    "transform": {
+      "position": {
+        "x": 576.0,
+        "y": 512.0889
+      },
+      "scale": {
+        "x": 64.0,
+        "y": 64.0
+      }
+    },
+    "layer": 0
+  },
+  {
+    "uid": 4,
+    "name": "Sprite_Object_gen",
+    "components": [
+      {
+        "type": "components.SpriteRender",
+        "properties": {
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "sprite": {
+            "width": 64.0,
+            "height": 64.0,
+            "texture": {
+              "filePath": "src/assets/textures/spritesheets/tilemap.png",
+              "textureID": 3,
+              "width": 640,
+              "height": 128
+            },
+            "texCoords": [
+              {
+                "x": 0.7,
+                "y": 0.0
+              },
+              {
+                "x": 0.7,
+                "y": 0.5
+              },
+              {
+                "x": 0.6,
+                "y": 0.5
+              },
+              {
+                "x": 0.6,
+                "y": 0.0
+              }
+            ]
+          },
+          "uid": 16
+        }
+      }
+    ],
+    "transform": {
+      "position": {
+        "x": 510.0,
+        "y": 508.3556
+      },
+      "scale": {
+        "x": 64.0,
+        "y": 64.0
+      }
+    },
+    "layer": 0
+  }
+]

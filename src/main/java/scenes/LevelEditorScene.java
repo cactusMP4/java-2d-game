@@ -14,13 +14,16 @@ public class LevelEditorScene extends Scene {
     private SpriteSheet spriteSheet;
     private SpriteSheet tilemap;
 
-    MouseControls mouseControls = new MouseControls();
+    GameObject levelEditorObj = new GameObject("LevelEditor");
     public LevelEditorScene() {
 
     }
 
     @Override
     public void init() {
+        levelEditorObj.addComponent(new MouseControls());
+        levelEditorObj.addComponent(new GirdLines());
+
         loadResources();
         this.camera = new Camera();
         spriteSheet = AssetPool.getSpriteSheet("spritesheets/spritesheet.png");
@@ -60,7 +63,7 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void render(float deltaTime) {
-        mouseControls.update(deltaTime);
+        levelEditorObj.update(deltaTime);
 
         for (GameObject go : this.gameObjects){
             go.update(deltaTime);
@@ -82,15 +85,15 @@ public class LevelEditorScene extends Scene {
         float windowX2 = windowPos.x + windowSize.x;
         for (int i = 0; i < tilemap.getSize(); i++){
             Sprite sprite = tilemap.getSprite(i);
-            float spriteWidth = sprite.getWidth() * 4;
-            float spriteHeight = sprite.getHeight() * 4;
+            float spriteWidth = sprite.getWidth();
+            float spriteHeight = sprite.getHeight();
             int id = sprite.getTexId();
             Vector2f[] texCords = sprite.getTexCords();
 
             ImGui.pushID(i);
-            if (ImGui.imageButton(id, spriteWidth, spriteHeight, texCords[0].x, texCords[0].y, texCords[2].x, texCords[2].y)){
+            if (ImGui.imageButton(id, spriteWidth, spriteHeight, texCords[3].x, texCords[3].y, texCords[1].x, texCords[1].y)){
                 GameObject object = Prefabs.generateSpriteObj(sprite, spriteWidth, spriteHeight);
-                mouseControls.pickupObj(object);
+                levelEditorObj.getComponent(MouseControls.class).pickupObj(object);
             }
             ImGui.popID();
 
