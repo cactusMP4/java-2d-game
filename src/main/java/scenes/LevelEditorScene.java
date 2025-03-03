@@ -10,6 +10,8 @@ import org.joml.Vector4f;
 import render.DebugDraw;
 import util.AssetPool;
 
+import static org.lwjgl.glfw.GLFW.*;
+
 public class LevelEditorScene extends Scene {
     private SpriteSheet spriteSheet;
     private SpriteSheet tilemap;
@@ -68,6 +70,36 @@ public class LevelEditorScene extends Scene {
         for (GameObject go : this.gameObjects){
             go.update(deltaTime);
         }
+
+        if (KeyListener.isKeyPressed(GLFW_KEY_W)){
+            if (KeyListener.isKeyPressed(GLFW_KEY_LEFT_SHIFT)){
+                camera.position.y += 150 * deltaTime;
+            } else {
+                camera.position.y += 50 * deltaTime;
+            }
+        }
+        if (KeyListener.isKeyPressed(GLFW_KEY_A)){
+            if (KeyListener.isKeyPressed(GLFW_KEY_LEFT_SHIFT)){
+                camera.position.x -= 150 * deltaTime;
+            } else {
+                camera.position.x -= 50 * deltaTime;
+            }
+        }
+        if (KeyListener.isKeyPressed(GLFW_KEY_S)){
+            if (KeyListener.isKeyPressed(GLFW_KEY_LEFT_SHIFT)){
+                camera.position.y -= 150 * deltaTime;
+            } else {
+                camera.position.y -= 50 * deltaTime;
+            }
+        }
+        if (KeyListener.isKeyPressed(GLFW_KEY_D)){
+            if (KeyListener.isKeyPressed(GLFW_KEY_LEFT_SHIFT)){
+                camera.position.x += 150 * deltaTime;
+            } else {
+                camera.position.x += 50 * deltaTime;
+            }
+        }
+
         this.renderer.render();
     }
 
