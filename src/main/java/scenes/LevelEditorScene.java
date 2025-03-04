@@ -5,16 +5,14 @@ import imgui.ImGui;
 import imgui.ImVec2;
 import jade.*;
 import org.joml.Vector2f;
-import org.joml.Vector3f;
 import org.joml.Vector4f;
-import render.DebugDraw;
 import util.AssetPool;
 
 import static org.lwjgl.glfw.GLFW.*;
 
 public class LevelEditorScene extends Scene {
     private SpriteSheet spriteSheet;
-    private SpriteSheet tilemap;
+    private SpriteSheet  tilemap;
 
     GameObject levelEditorObj = new GameObject("LevelEditor");
     public LevelEditorScene() {
@@ -31,29 +29,10 @@ public class LevelEditorScene extends Scene {
         spriteSheet = AssetPool.getSpriteSheet("spritesheets/spritesheet.png");
         tilemap = AssetPool.getSpriteSheet("spritesheets/tilemap.png");
 
-        DebugDraw.addLine2D(new Vector2f(200,200), new Vector2f(800,700), new Vector3f(0,1,0), 100);
-
         if(levelLoaded){
             this.activeObject = gameObjects.getFirst();
-            this.activeObject.addComponent(new RigidBody());
             return;
         }
-
-        GameObject block = new GameObject("block", new Transform(new Vector2f(400,150), new Vector2f(100,100)),1);
-        SpriteRender blockSprite = new SpriteRender();
-        blockSprite.setColor(new Vector4f(0.3f, 1, 0.3f, 1));
-        block.addComponent(blockSprite);
-        block.addComponent(new RigidBody());
-        this.addGameObjectToScene(block);
-
-        GameObject niko = new GameObject("niko", new Transform(new Vector2f(200,150), new Vector2f(100,100)));
-        SpriteRender nikoSprite = new SpriteRender();
-        nikoSprite.setSprite(spriteSheet.getSprite(7));
-        niko.addComponent(nikoSprite);
-        niko.addComponent(new RigidBody());
-        this.addGameObjectToScene(niko);
-
-        this.activeObject=block;
     }
     private void loadResources() {
         AssetPool.getShader("default.glsl");

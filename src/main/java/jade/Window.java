@@ -32,9 +32,9 @@ public class Window {
         this.width = 1920;
         this.height = 1080;
         this.title = "2Dgame";
-        r = 1;
-        g = 1;
-        b = 1;
+        r = 0.11f;
+        g = 0.11f;
+        b = 0.18f;
     }
     public static void changeScene(int newScene) {
         switch (newScene) {

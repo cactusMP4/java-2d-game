@@ -12,8 +12,8 @@ public class GirdLines extends Component{
         Vector2f cameraPos = Window.getScene().getCamera().position;
         Vector2f projectionSize = Window.getScene().getCamera().getProjectionSize();
 
-        int firstX = ((int) (cameraPos.x/ Settings.GRID_WIDTH) * Settings.GRID_WIDTH);
-        int firstY = ((int) (cameraPos.y/ Settings.GRID_HEIGHT) * Settings.GRID_HEIGHT);
+        int firstX = ((int) (cameraPos.x/ Settings.GRID_WIDTH) - 1) * Settings.GRID_WIDTH;
+        int firstY = ((int) (cameraPos.y/ Settings.GRID_HEIGHT) - 1) * Settings.GRID_HEIGHT;
 
         int numVertLines = (int)(projectionSize.x/Settings.GRID_WIDTH);
         int numHoriLines = (int)(projectionSize.y/Settings.GRID_HEIGHT);
@@ -22,16 +22,18 @@ public class GirdLines extends Component{
         int height = (int)projectionSize.y;
 
         int maxLines = Math.max(numVertLines, numHoriLines);
-        Vector3f color = new Vector3f(0,0,0);
-        for (int i=0; i<maxLines; i++){
+
+        Vector3f color = new Vector3f(0.72f,0.76f,0.87f);
+
+        for (int i=0; i<maxLines+2; i++){
             int x = firstX + (Settings.GRID_WIDTH*i);
             int y = firstY + (Settings.GRID_HEIGHT*i);
 
-            if (i < numVertLines){
-                DebugDraw.addLine2D(new Vector2f(x,firstY),new Vector2f(x,firstY+height), color);
+            if (i < numVertLines+2){
+                DebugDraw.addLine2D(new Vector2f(x,firstY),new Vector2f(x,firstY+height+128), color);
             }
-            if (i < numHoriLines){
-                DebugDraw.addLine2D(new Vector2f(firstX,y),new Vector2f(firstX+width, y), color);
+            if (i < numHoriLines+3){
+                DebugDraw.addLine2D(new Vector2f(firstX,y),new Vector2f(firstX+width+128, y), color);
             }
         }
     }
