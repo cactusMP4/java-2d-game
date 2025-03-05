@@ -7,6 +7,7 @@ import jade.*;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 import util.AssetPool;
+import util.Settings;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -115,6 +116,18 @@ public class LevelEditorScene extends Scene {
             if (i + 1 < tilemap.getSize() && nextButtonX2 < windowX2){
                 ImGui.sameLine();
             }
+        }
+
+        ImGui.end();
+
+        ImGui.begin("Coordinates");
+
+        GameObject object = levelEditorObj.getComponent(MouseControls.class).getHoldingObj();
+        if (object != null) {
+            ImGui.labelText("(" + object.transform.position.x/Settings.GRID_WIDTH + "; " + object.transform.position.y/Settings.GRID_HEIGHT + ")",
+                    "(" + object.transform.position.x + "; " + object.transform.position.y + ")");
+        } else {
+            ImGui.labelText("-","-");
         }
 
         ImGui.end();

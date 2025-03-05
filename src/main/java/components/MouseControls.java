@@ -24,6 +24,14 @@ public class MouseControls extends Component {
         if (holdingObj != null){
             holdingObj.transform.position.x = MouseListener.getOrthoX();
             holdingObj.transform.position.y = MouseListener.getOrthoY();
+
+            if (holdingObj.transform.position.x < 0){
+                holdingObj.transform.position.x -= Settings.GRID_WIDTH;
+            }
+            if (holdingObj.transform.position.y < 0){
+                holdingObj.transform.position.y -= Settings.GRID_HEIGHT;
+            }
+
             holdingObj.transform.position.x = (int)(holdingObj.transform.position.x / Settings.GRID_WIDTH) * Settings.GRID_WIDTH;
             holdingObj.transform.position.y = (int)(holdingObj.transform.position.y / Settings.GRID_HEIGHT) * Settings.GRID_HEIGHT;
 
@@ -31,5 +39,9 @@ public class MouseControls extends Component {
                 place();
             }
         }
+    }
+
+    public GameObject getHoldingObj() {
+        return this.holdingObj;
     }
 }
