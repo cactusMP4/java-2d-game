@@ -5,7 +5,6 @@ import imgui.ImGui;
 import imgui.ImVec2;
 import jade.*;
 import org.joml.Vector2f;
-import org.joml.Vector4f;
 import util.AssetPool;
 import util.Settings;
 
@@ -84,7 +83,7 @@ public class LevelEditorScene extends Scene {
     }
 
     @Override
-    public void imgui(){
+    public void imgui(float dt){
         ImGui.begin("some blocks");
 
         ImVec2 windowPos = new ImVec2();
@@ -129,6 +128,12 @@ public class LevelEditorScene extends Scene {
         } else {
             ImGui.labelText("-","-");
         }
+
+        ImGui.end();
+
+        ImGui.begin("FPS & DeltaTime");
+
+        ImGui.labelText("dt: "+dt,"FPS: "+(int)(1/dt));
 
         ImGui.end();
     }

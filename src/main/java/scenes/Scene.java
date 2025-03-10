@@ -48,15 +48,15 @@ public abstract class Scene {
 
     public Camera getCamera() {return this.camera;}
 
-    public void sceneImgui() {
+    public void sceneImGui(float dt) {
         if (activeObject != null) {
             ImGui.begin("Inspector");
             activeObject.imgui();
             ImGui.end();
         }
-        imgui();
+        imgui(dt);
     }
-    public void imgui(){
+    public void imgui(float dt){
 
     }
 

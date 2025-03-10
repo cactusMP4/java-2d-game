@@ -3,12 +3,17 @@ package render;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-public class Line2D {
+public class Line {
     private Vector2f start, end;
     private Vector3f color;
     private float lifetime;
 
-    public Line2D(Vector2f from, Vector2f to, Vector3f color, float lifetime) {
+    public Line(Vector2f from, Vector2f to){
+        this.start = from;
+        this.end = to;
+    }
+
+    public Line(Vector2f from, Vector2f to, Vector3f color, float lifetime) {
         this.start = from;
         this.end = to;
         this.color = color;

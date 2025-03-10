@@ -8,8 +8,8 @@
         "properties": {
           "color": {
             "x": 1.0,
-            "y": 1.0,
-            "z": 1.0,
+            "y": 0.99999,
+            "z": 0.99999,
             "w": 1.0
           },
           "sprite": {
@@ -275,6 +275,63 @@
     "transform": {
       "position": {
         "x": 832.0,
+        "y": 384.0
+      },
+      "scale": {
+        "x": 64.0,
+        "y": 64.0
+      }
+    },
+    "layer": 0
+  },
+  {
+    "uid": 6,
+    "name": "Sprite_Object_gen",
+    "components": [
+      {
+        "type": "components.SpriteRender",
+        "properties": {
+          "color": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0,
+            "w": 1.0
+          },
+          "sprite": {
+            "width": 64.0,
+            "height": 64.0,
+            "texture": {
+              "filePath": "src/assets/textures/spritesheets/tilemap.png",
+              "textureID": 3,
+              "width": 640,
+              "height": 128
+            },
+            "texCoords": [
+              {
+                "x": 0.7,
+                "y": 0.5
+              },
+              {
+                "x": 0.7,
+                "y": 1.0
+              },
+              {
+                "x": 0.6,
+                "y": 1.0
+              },
+              {
+                "x": 0.6,
+                "y": 0.5
+              }
+            ]
+          },
+          "uid": 13
+        }
+      }
+    ],
+    "transform": {
+      "position": {
+        "x": 704.0,
         "y": 384.0
       },
       "scale": {

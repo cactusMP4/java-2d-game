@@ -66,13 +66,13 @@ public class GameObject {
     }
 
     public void update(float deltaTime){
-        for (int i=0; i < components.size(); i++){
-            components.get(i).update(deltaTime);
+        for (Component component : components) {
+            component.update(deltaTime);
         }
     }
     public void start() {
-        for (int i=0; i < components.size(); i++){
-            components.get(i).start();
+        for (Component component : components) {
+            component.start();
         }
     }
 

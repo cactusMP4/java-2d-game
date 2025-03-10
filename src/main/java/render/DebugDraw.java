@@ -17,7 +17,7 @@ import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 public class DebugDraw {
     private static final int MAX_LINES = 500;
 
-    private static final List<Line2D> lines = new ArrayList<>();
+    private static final List<Line> lines = new ArrayList<>();
     private static final float[] vertexArray = new float[MAX_LINES * 6 * 2];//6 floats 2 vertices
     private static final Shader shader = AssetPool.getShader("debugLine2D.glsl");
 
@@ -61,7 +61,7 @@ public class DebugDraw {
         if (lines.isEmpty()) return;
 
         int index = 0;
-        for (Line2D line : lines){
+        for (Line line : lines){
             for (int i=0; i<2; i++){
                 Vector2f position = i == 0 ? line.getStart() : line.getEnd();
                 Vector3f color = line.getColor();
@@ -105,7 +105,7 @@ public class DebugDraw {
     }
     public static void addLine2D(Vector2f start, Vector2f end, Vector3f color, float lifetime){
         if (lines.size() >= MAX_LINES) return;
-        DebugDraw.lines.add(new Line2D(start,end,color,lifetime));
+        DebugDraw.lines.add(new Line(start,end,color,lifetime));
     }
 
 //    public static void addBox2D(Vector2f center, Vector2f size, float rotation, Vector3f color, float lifetime){

@@ -16,12 +16,9 @@ public class Box {
         this.halfSize = new Vector2f(size).mul(0.5f);
     }
 
-    public Vector2f getMin(){
-        return new Vector2f(this.rigidBody.getPosition()).sub(this.halfSize);
-    }
-    public Vector2f getMax(){
-        return new Vector2f(this.rigidBody.getPosition()).add(this.halfSize);
-    }
+    public Vector2f getMin(){return new Vector2f(this.rigidBody.getPosition()).sub(this.halfSize);}
+    public Vector2f getMax(){return new Vector2f(this.rigidBody.getPosition()).add(this.halfSize);}
+    public RigidBody getRigidBody() {return rigidBody;}
 
     public Vector2f[] getVertices(){
         Vector2f min = getMin();
