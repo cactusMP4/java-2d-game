@@ -22,9 +22,7 @@ public class Transform {
         this.scale = scale;
     }
 
-    public Transform copy(){
-        return new Transform(new Vector2f(position),new Vector2f(scale));
-    }
+    public Transform copy(){return new Transform(new Vector2f(position),new Vector2f(scale));}
 
     public void copy(Transform to){
         to.position.set(this.position);

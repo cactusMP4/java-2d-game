@@ -5,7 +5,7 @@ import physics.rigidbody.RigidBody;
 
 public class Box {
     private Vector2f size = new Vector2f();
-    private Vector2f halfSize = new Vector2f();
+    private Vector2f halfSize;
     private RigidBody rigidBody = null;
 
     public Box(){

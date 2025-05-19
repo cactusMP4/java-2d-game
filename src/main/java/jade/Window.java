@@ -52,9 +52,7 @@ public class Window {
         currentScene.init();
         currentScene.start();
     }
-    public static Scene getScene() {
-        return getWindow().currentScene;
-    }
+    public static Scene getScene() {return currentScene;}
 
     public static Window getWindow() {
         if (window == null) {
@@ -148,10 +146,6 @@ public class Window {
             endTime = (float)glfwGetTime();
             deltaTime = endTime - beginTime;
             beginTime = endTime;
-
-//            if (1/deltaTime < 30) {
-//                System.out.println("[WARNING]: low FPS: "+1/deltaTime);
-//            }
         }
         currentScene.save();
     }
