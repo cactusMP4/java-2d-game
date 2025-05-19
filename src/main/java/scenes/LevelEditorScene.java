@@ -11,7 +11,6 @@ import util.Settings;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class LevelEditorScene extends Scene {
-    private SpriteSheet spriteSheet;
     private SpriteSheet  tilemap;
 
     GameObject levelEditorObj = new GameObject("LevelEditor");
@@ -26,7 +25,6 @@ public class LevelEditorScene extends Scene {
 
         loadResources();
         this.camera = new Camera();
-        spriteSheet = AssetPool.getSpriteSheet("spritesheets/spritesheet.png");
         tilemap = AssetPool.getSpriteSheet("spritesheets/tilemap.png");
 
         if(levelLoaded){

@@ -24,6 +24,9 @@ project.ext.lwjglNatives = "natives-windows"
 project.ext.imguiVersion = '1.81.0'
 
 dependencies {
+    //JUnit
+    testImplementation('junit:junit:4.13.1')
+
     //ImGui
     implementation "io.github.spair:imgui-java-app:$imguiVersion"
     implementation "io.github.spair:imgui-java-binding:$imguiVersion"

@@ -12,6 +12,9 @@ public class IntersectionDetector {
     public static boolean pointOnLine(Vector2f point, Line line){
         float dx = line.getEnd().x - line.getStart().x;
         float dy = line.getEnd().y - line.getStart().y;
+        if(dx==0f){
+            return JadeMath.compare(point.x, line.getStart().x);
+        }
         float m = dy/dx;
 
         float b = line.getEnd().y - (m*line.getEnd().x);
@@ -43,5 +46,22 @@ public class IntersectionDetector {
 
         return pointLocalBoxSpace.x <= max.x && min.x <= pointLocalBoxSpace.x &&
                 pointLocalBoxSpace.y <= max.y && min.y <= pointLocalBoxSpace.y;
+    }
+
+    public static boolean LineInCircle(Line line, Circle circle){
+        if (pointInCircle(line.getStart(), circle) || pointInCircle(line.getEnd(), circle)){
+            return true;
+        }
+
+        Vector2f ab = new Vector2f(line.getEnd().sub(line.getStart()));
+        Vector2f circleCenter = circle.getCenter();
+        Vector2f centerToLineStart = new Vector2f(circleCenter).sub(line.getStart());
+        float t = centerToLineStart.dot(ab) / ab.dot(ab);
+
+        if (t < 0.0f || t > 1.0f){return false;}
+
+        Vector2f closestPoint = new Vector2f(line.getStart()).add(ab.mul(t));
+
+        return pointInCircle(closestPoint, circle);
     }
 }
