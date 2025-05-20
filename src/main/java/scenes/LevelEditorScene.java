@@ -50,6 +50,7 @@ public class LevelEditorScene extends Scene {
             go.update(deltaTime);
         }
 
+        //camera movement
         int defaultSpeed = 50;
         int sprintSpeed = 150;
 
@@ -61,11 +62,8 @@ public class LevelEditorScene extends Scene {
 
         for (var entry : keyBinds.entrySet()){
             if (KeyListener.isKeyPressed(entry.getKey())){
-                if (KeyListener.isKeyPressed(GLFW_KEY_LEFT_SHIFT)){
-                    camera.position.add(entry.getValue().mul(sprintSpeed*deltaTime));
-                } else {
-                    camera.position.add(entry.getValue().mul(defaultSpeed*deltaTime));
-                }
+                float speed = KeyListener.isKeyPressed(GLFW_KEY_LEFT_SHIFT)? sprintSpeed : defaultSpeed;
+                camera.position.add(entry.getValue().mul(speed*deltaTime));
             }
         }
 

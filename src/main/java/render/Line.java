@@ -28,4 +28,8 @@ public class Line {
     public Vector2f getStart() {return start;}
     public Vector2f getEnd() {return end;}
     public Vector3f getColor() {return color;}
+
+    public float lengthSquared(){
+        return new Vector2f(end).sub(start).lengthSquared();
+    }
 }
