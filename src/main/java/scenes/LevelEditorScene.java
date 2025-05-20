@@ -8,6 +8,8 @@ import org.joml.Vector2f;
 import util.AssetPool;
 import util.Settings;
 
+import java.util.*;
+
 import static org.lwjgl.glfw.GLFW.*;
 
 public class LevelEditorScene extends Scene {
@@ -48,32 +50,22 @@ public class LevelEditorScene extends Scene {
             go.update(deltaTime);
         }
 
-        if (KeyListener.isKeyPressed(GLFW_KEY_W)){
-            if (KeyListener.isKeyPressed(GLFW_KEY_LEFT_SHIFT)){
-                camera.position.y += 150 * deltaTime;
-            } else {
-                camera.position.y += 50 * deltaTime;
-            }
-        }
-        if (KeyListener.isKeyPressed(GLFW_KEY_A)){
-            if (KeyListener.isKeyPressed(GLFW_KEY_LEFT_SHIFT)){
-                camera.position.x -= 150 * deltaTime;
-            } else {
-                camera.position.x -= 50 * deltaTime;
-            }
-        }
-        if (KeyListener.isKeyPressed(GLFW_KEY_S)){
-            if (KeyListener.isKeyPressed(GLFW_KEY_LEFT_SHIFT)){
-                camera.position.y -= 150 * deltaTime;
-            } else {
-                camera.position.y -= 50 * deltaTime;
-            }
-        }
-        if (KeyListener.isKeyPressed(GLFW_KEY_D)){
-            if (KeyListener.isKeyPressed(GLFW_KEY_LEFT_SHIFT)){
-                camera.position.x += 150 * deltaTime;
-            } else {
-                camera.position.x += 50 * deltaTime;
+        int defaultSpeed = 50;
+        int sprintSpeed = 150;
+
+        Map<Integer, Vector2f> keyBinds = new HashMap<>();
+        keyBinds.put(GLFW_KEY_W, new Vector2f(0, 1));
+        keyBinds.put(GLFW_KEY_A, new Vector2f(-1, 0));
+        keyBinds.put(GLFW_KEY_S, new Vector2f(0, -1));
+        keyBinds.put(GLFW_KEY_D, new Vector2f(1, 0));
+
+        for (var entry : keyBinds.entrySet()){
+            if (KeyListener.isKeyPressed(entry.getKey())){
+                if (KeyListener.isKeyPressed(GLFW_KEY_LEFT_SHIFT)){
+                    camera.position.add(entry.getValue().mul(sprintSpeed*deltaTime));
+                } else {
+                    camera.position.add(entry.getValue().mul(defaultSpeed*deltaTime));
+                }
             }
         }
 
