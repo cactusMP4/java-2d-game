@@ -3,7 +3,6 @@ package physics;
 import org.joml.Vector2f;
 import org.junit.jupiter.api.Test;
 import physics.primitives.AABB;
-import physics.primitives.Circle;
 import physics.rigidbody.IntersectionDetector;
 import render.Line;
 
